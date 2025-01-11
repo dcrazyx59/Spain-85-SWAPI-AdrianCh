@@ -1,0 +1,5 @@
+/* No animation for Navbar on route change */
+.navbar {
+    view-transition-name: main-header;
+    z-index: 2;
+}
