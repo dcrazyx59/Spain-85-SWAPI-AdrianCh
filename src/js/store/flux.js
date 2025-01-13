@@ -107,21 +107,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let reccomendedByHomeworld = []
 				if (characterObj.homeworld) {
 					reccomendedByHomeworld = store.characters.filter(storeCharacter =>
-						characterObj.homeworld.includes(storeCharacter.homeworld && storeCharacter.name !== characterObj.name)
+						storeCharacter.name !== characterObj.name &&
+						storeCharacter.homeworld === characterObj.homeworld
 					)
 					.map(storeCharacter => storeCharacter);
 				}
 
-				let AllReccomendedCharacters = [reccomendedByApprentices, reccomendedByMasters, reccomendedByHomeworld, reccomendedByAffiliation , reccomendedBySpecies]
+				let AllReccomendedCharacters = [reccomendedByApprentices, reccomendedByMasters, reccomendedByHomeworld, reccomendedBySpecies, reccomendedByAffiliation]
 				let filteredReccomendedCharacters = []
-				
-				for (let i = 0; i < AllReccomendedCharacters.length; i++) {
-					if(AllReccomendedCharacters[i].length !== 0) {
-						let selectedCharacter = randomCharacter(AllReccomendedCharacters[i])
+
+				function filterWithoutDuplicates(array) {
+					let selectedCharacter = randomCharacter(array)
 						if(!filteredReccomendedCharacters.find(character => character.name === selectedCharacter.name)) {
 							filteredReccomendedCharacters.push(selectedCharacter)
 						}
+				}
+				
+				for (let i = 0; i < AllReccomendedCharacters.length; i++) {
+					console.log(reccomendedByHomeworld);
+					if(AllReccomendedCharacters[i].length !== 0) {
+						console.log("working first loop");
+						
+						filterWithoutDuplicates(AllReccomendedCharacters[i])
 					}
+				}
+
+				let counter = 0
+				while (filteredReccomendedCharacters.length < 4) {
+					console.log("working second loop");
+					
+					if(reccomendedByApprentices.length > 0) {
+						filterWithoutDuplicates(reccomendedByApprentices)
+					}
+
+					if(reccomendedByMasters.length > 0) {
+						filterWithoutDuplicates(reccomendedByMasters)
+					}
+
+					if(reccomendedByHomeworld.length > 0) {
+						filterWithoutDuplicates(reccomendedByHomeworld)
+					}
+
+					if(reccomendedBySpecies.length > 0) {
+						filterWithoutDuplicates(reccomendedBySpecies)
+					}
+
+					if(reccomendedByAffiliation.length > 0) {
+						filterWithoutDuplicates(reccomendedByAffiliation)
+					}
+
+					counter++
+					if(counter >= 4) break
 				}
 
 				return filteredReccomendedCharacters.slice(0,4);

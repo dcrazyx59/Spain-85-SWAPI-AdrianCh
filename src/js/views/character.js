@@ -27,12 +27,8 @@ export const Demo = () => {
 		});
 	}
 
-	async function goToCharacterPage (index) {
+    async function goToCharacterPage (index) {
 		let characterLink = `/character/${index}`
-		console.log(document.querySelector(`.card-${index}`));
-		
-		let cardCssClass = document.querySelector(`.card-${index}`)
-		cardCssClass.style.viewTransitionName = "image-character";
 
 		if (!document.startViewTransition) {
 			navigate(characterLink);
@@ -40,7 +36,6 @@ export const Demo = () => {
 		}
 
 		document.startViewTransition(() => {
-			cardCssClass.style.viewTransitionName = "";
 			navigate(characterLink);
 		});
 	}
@@ -83,33 +78,35 @@ export const Demo = () => {
 			<br />
 			
 			<h2>Also Reccomended:</h2>
-			{recommendedCharacters.map((reccomendedCharacter, index) => 
-				<div key={index} className="card d-inline-block" >
-					<div className="card-body d-flex flex-column gap-3">
-						<h5 className="card-title m-0">{reccomendedCharacter.name}</h5>
-						<div className="mx-auto card-container">
-							<img src={reccomendedCharacter.image} alt= {reccomendedCharacter.name} className={`card-image card-${reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2}`}/>
-						</div>
-						<ul className="">
-							<li>Homeworld: {reccomendedCharacter.homeworld}</li>
-							<li>Status: {reccomendedCharacter.died ? "Dead" : "Alive"}</li>
-							<li>Species: {reccomendedCharacter.species}</li>
-						</ul>
-						<div className="d-flex justify-content-between bottom-0">
-							<button className="btn btn-primary position-relative" onClick={() => goToCharacterPage(reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2)}>Learn more!</button>
-							{!store.favourites.find(fav => fav.newFavourite=== reccomendedCharacter.name)?
-								<button className="btn btn-warning" onClick={() => actions.addToFavourites(reccomendedCharacter.name, reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2, reccomendedCharacter.image)}>
-									<i className="fa-regular fa-heart"></i>
-								</button>
-								:
-								<button className="btn btn-danger" onClick={() => actions.removeFromFavourites(reccomendedCharacter.name)}>
-									<i className="fa-regular fa-x"></i>
-								</button>
-							}
+			<div className="container">
+				{recommendedCharacters.map((reccomendedCharacter, index) =>
+					<div key={index} className="card d-inline-block col-12 col-md-6 col-lg-4 col-xl-3">
+						<div className="card-body d-flex flex-column gap-3">
+							<h5 className="card-title m-0">{reccomendedCharacter.name}</h5>
+							<div className="mx-auto card-container">
+								<img src={reccomendedCharacter.image} alt= {reccomendedCharacter.name} className={`card-image card-${reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2}`}/>
+							</div>
+							<ul className="">
+								<li>Homeworld: {reccomendedCharacter.homeworld}</li>
+								<li>Status: {reccomendedCharacter.died ? "Dead" : "Alive"}</li>
+								<li>Species: {reccomendedCharacter.species}</li>
+							</ul>
+							<div className="d-flex justify-content-between bottom-0">
+								<button className="btn btn-primary position-relative" onClick={() => goToCharacterPage(reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2)}>Learn more!</button>
+								{!store.favourites.find(fav => fav.newFavourite=== reccomendedCharacter.name)?
+									<button className="btn btn-warning" onClick={() => actions.addToFavourites(reccomendedCharacter.name, reccomendedCharacter.id <= 16 ? reccomendedCharacter.id - 1 : reccomendedCharacter.id -2, reccomendedCharacter.image)}>
+										<i className="fa-regular fa-heart"></i>
+									</button>
+									:
+									<button className="btn btn-danger" onClick={() => actions.removeFromFavourites(reccomendedCharacter.name)}>
+										<i className="fa-regular fa-x"></i>
+									</button>
+								}
+							</div>
 						</div>
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }

@@ -194,11 +194,11 @@ const Home = () => {
 				<i className="fa-solid fa-magnifying-glass border border-secondary p-1 rounded-circle end-0 m-1" onClick={toggleVisibility} ></i>
 			</div>
 		</div>
-		<div className="d-flex">
+		<div className="d-flex whole-scroller">
 			<div className="mx-auto align-content-center position-relative">
 				<button className="slider-button-wrapper left-button-slider"><i className="fa-solid fa-angle-left"></i></button>
 			</div>
-			<div className="d-flex card-scroller w-100 gap-2">
+			<div className="d-flex card-scroller snap-back w-100 gap-2">
 				{store.characters && store.characters.length > 0 ? store.characters.map((value, index) =>
 					<div key={index} className="card d-inline-block" >
 						<div className="card-body d-flex flex-column gap-3">

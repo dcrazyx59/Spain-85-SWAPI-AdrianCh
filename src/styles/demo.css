@@ -3,7 +3,8 @@ body {
 }
 
 .image-individual-character {
-    max-width: 400px;
+    width: clamp(200px, 40%, 400px );
+    height: clamp(200px, 40%, 400px );
     view-transition-name: image-character;
 }
 

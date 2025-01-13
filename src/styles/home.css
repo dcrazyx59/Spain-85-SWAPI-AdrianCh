@@ -26,6 +26,10 @@ body {
     z-index: 1;
 }
 
+.card-scroller:hover {
+    cursor: grab;
+}
+
 .card-scroller::-webkit-scrollbar {
     width: 4vw;
     height: 0.60vw;
@@ -38,7 +42,6 @@ body {
 
 .card-scroller::-webkit-scrollbar-thumb:hover {
     background-color: #777;
-    
 }
 
 .card-scroller::-webkit-scrollbar-track {
